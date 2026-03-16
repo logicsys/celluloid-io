@@ -10,7 +10,7 @@ group :development do
 end
 
 group :test do
-  gem "rspec",       "~> 3",   require: false
+  gem "rspec",       "~> 4.0.0.beta1", require: false
   gem "rspec-retry", "~> 0.5", require: false
   gem "simplecov",             require: false
   gem "benchmark-ips",         require: false
