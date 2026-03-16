@@ -35,7 +35,7 @@ module Celluloid
       def resolve(hostname)
         if host = resolve_hostname(hostname)
           unless ip_address = resolve_host(host)
-            fail Resolv::ResolvError, "invalid entry in hosts file: #{host}"
+            raise Resolv::ResolvError, "invalid entry in hosts file: #{host}"
           end
           return ip_address
         end

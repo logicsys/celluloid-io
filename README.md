@@ -2,8 +2,7 @@
 ================
 [![Gem Version](https://badge.fury.io/rb/celluloid-io.svg)](http://rubygems.org/gems/celluloid-io)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/celluloid/celluloid-io/blob/master/LICENSE.txt)
-[![Build Status](https://secure.travis-ci.org/celluloid/celluloid-io.svg?branch=master)](http://travis-ci.org/celluloid/celluloid-io)
-[![Maintained: no](https://img.shields.io/maintenance/no/2016.svg)](https://github.com/celluloid/celluloid/issues/779)
+[![CI](https://github.com/celluloid/celluloid-io/actions/workflows/ci.yml/badge.svg)](https://github.com/celluloid/celluloid-io/actions/workflows/ci.yml)
 
 You don't have to choose between threaded and evented IO! Celluloid::IO
 provides an event-driven IO system for building fast, scalable network
@@ -68,14 +67,8 @@ Inside of your Ruby program, require Celluloid::IO with:
 Supported Platforms
 -------------------
 
-`Celluloid::IO` works on all Ruby (MRI) versions between `1.9.3` & `2.3.1`,
-JRuby's `1.6.*`, `1.7.*` and `9.*` series, and Rubinius' `2.*` and `3.*` series.
-
-JRuby or Rubinius are the preferred platforms as they support true thread-level
-parallelism when executing Ruby code, whereas MRI/YARV is constrained by a global
-interpreter lock (GIL) and can only execute one thread at a time.
-
-Celluloid::IO requires Ruby 1.9 mode on all interpreters, at minimum.
+`Celluloid::IO` requires Ruby 2.5 or newer. It is tested against Ruby 2.7
+through 3.3 on MRI.
 
 Contributing to Celluloid::IO
 -----------------------------
@@ -88,7 +81,7 @@ Contributing to Celluloid::IO
 License
 -------
 
-Copyright (c) 2011-2016 Tony Arcieri. Distributed under the MIT License. See
+Copyright (c) 2011-2026 Tony Arcieri. Distributed under the MIT License. See
 LICENSE.txt for further details.
 
 Contains code originally from the RubySpec project also under the MIT License.

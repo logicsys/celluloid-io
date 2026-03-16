@@ -20,11 +20,11 @@ module Celluloid
       #   Wraps an already existing tcp server instance.
       #   @param socket [::TCPServer]
       def initialize(*args)
-        if args.first.kind_of? ::BasicSocket
+        if args.first.is_a? ::BasicSocket
           # socket
           socket = args.first
-          fail ArgumentError, "wrong number of arguments (#{args.size} for 1)" if args.size != 1
-          fail ArgumentError, "wrong kind of socket (#{socket.class} for TCPServer)" unless socket.kind_of? ::TCPServer
+          raise ArgumentError, "wrong number of arguments (#{args.size} for 1)" if args.size != 1
+          raise ArgumentError, "wrong kind of socket (#{socket.class} for TCPServer)" unless socket.is_a? ::TCPServer
           super(socket)
         else
           super(::TCPServer.new(*args))

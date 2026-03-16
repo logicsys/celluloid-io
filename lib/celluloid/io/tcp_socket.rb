@@ -43,11 +43,11 @@ module Celluloid
       #   @param socket [::TCPSocket]
       #
       def initialize(*args)
-        if args.first.kind_of? ::BasicSocket
+        if args.first.is_a? ::BasicSocket
           # socket
           socket = args.first
-          fail ArgumentError, "wrong number of arguments (#{args.size} for 1)" if args.size != 1
-          fail ArgumentError, "wrong kind of socket (#{socket.class} for TCPSocket)" unless socket.kind_of? ::TCPSocket
+          raise ArgumentError, "wrong number of arguments (#{args.size} for 1)" if args.size != 1
+          raise ArgumentError, "wrong kind of socket (#{socket.class} for TCPSocket)" unless socket.is_a? ::TCPSocket
           super(socket)
         else
           super(create_socket(*args))
@@ -56,14 +56,14 @@ module Celluloid
 
       # Receives a message
       def recv(maxlen, flags = nil)
-        fail NotImplementedError, "flags not supported" if flags && !flags.zero?
+        raise NotImplementedError, "flags not supported" if flags && !flags.zero?
         readpartial(maxlen)
       end
 
       # Send a message
       def send(msg, flags, dest_sockaddr = nil)
-        fail NotImplementedError, "dest_sockaddr not supported" if dest_sockaddr
-        fail NotImplementedError, "flags not supported" unless flags.zero?
+        raise NotImplementedError, "dest_sockaddr not supported" if dest_sockaddr
+        raise NotImplementedError, "flags not supported" unless flags.zero?
         write(msg)
       end
 
@@ -99,7 +99,7 @@ module Celluloid
         # Guess it's not an IP address, so let's try DNS
         unless addr
           addrs = Array(DNSResolver.new.resolve(remote_host))
-          fail Resolv::ResolvError, "DNS result has no information for #{remote_host}" if addrs.empty?
+          raise Resolv::ResolvError, "DNS result has no information for #{remote_host}" if addrs.empty?
 
           # Pseudorandom round-robin DNS support :/
           addr = addrs[rand(addrs.size)]
@@ -110,7 +110,7 @@ module Celluloid
           family = Socket::AF_INET
         when Resolv::IPv6
           family = Socket::AF_INET6
-        else fail ArgumentError, "unsupported address class: #{addr.class}"
+        else raise ArgumentError, "unsupported address class: #{addr.class}"
         end
 
         socket = Socket.new(family, Socket::SOCK_STREAM, 0)

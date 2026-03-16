@@ -37,7 +37,7 @@ module Celluloid
     end
 
     def self.copy_stream(src, dst, copy_length = nil, src_offset = nil)
-      fail NotImplementedError, "length/offset not supported" if copy_length || src_offset
+      raise NotImplementedError, "length/offset not supported" if copy_length || src_offset
 
       src, dst = try_convert(src), try_convert(dst)
 

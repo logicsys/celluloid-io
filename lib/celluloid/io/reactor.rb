@@ -36,7 +36,7 @@ module Celluloid
             io = ::IO.try_convert(io)
           end
 
-          fail TypeError, "can't convert #{io.class} into IO" unless io.is_a?(::IO)
+          raise TypeError, "can't convert #{io.class} into IO" unless io.is_a?(::IO)
         end
 
         monitor = @selector.register(io, set)

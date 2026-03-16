@@ -1,3 +1,14 @@
+0.18.0 (2026-03-16)
+-----
+* Maintenance release: modernize project for current Ruby ecosystem.
+* Require Ruby >= 2.5, nio4r >= 2.0.
+* Replace Travis CI with GitHub Actions.
+* Replace `fail` with `raise` and `kind_of?` with `is_a?` throughout.
+* Drop outdated dev dependencies (rubocop, coveralls).
+* Update README: remove unmaintained badge, update supported platforms.
+* Remove 'culture' module.
+* Fix typos, dead links, and update example code.
+
 0.17.3 (2016-01-18)
 -----
 * [#163](https://github.com/celluloid/celluloid-io/pull/163)

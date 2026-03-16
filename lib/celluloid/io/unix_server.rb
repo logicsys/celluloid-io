@@ -17,9 +17,9 @@ module Celluloid
       # @overload initialize(socket)
       #   @param socket [::UNIXServer]
       def initialize(socket)
-        if socket.kind_of? ::BasicSocket
+        if socket.is_a? ::BasicSocket
           # socket
-          fail ArgumentError, "wrong kind of socket (#{socket.class} for UNIXServer)" unless socket.kind_of? ::UNIXServer
+          raise ArgumentError, "wrong kind of socket (#{socket.class} for UNIXServer)" unless socket.is_a? ::UNIXServer
           super(socket)
         else
           begin
