@@ -46,7 +46,7 @@ RSpec.describe Celluloid::IO, library: :IO do
       end
 
       it "frees up the socket when a timeout error occurs" do
-        a1 = sleeping_actor_class.new(example_addr, example_port)
+        sleeping_actor_class.new(example_addr, example_port)
         a2 = foo_actor_class.new(example_addr, example_port)
       
         expect(a2.timedout_read(1)).to eq true # this ensures that the socket timeouted trying to read
