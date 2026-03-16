@@ -13,10 +13,8 @@ RSpec.describe Celluloid::IO::TCPSocket, library: :IO do
 
         socket = within_io_actor { Celluloid::IO::TCPSocket.open(example_addr, example_port) }
         expect(socket).to be_a(Celluloid::IO::TCPSocket)
-
-        server.close
-        thread.terminate
-        socket.close
+      ensure
+        [server, socket].each { |s| s.close rescue nil }
       end
       context "when passed a block" do
         it "returns the block evaluation" do
@@ -25,9 +23,8 @@ RSpec.describe Celluloid::IO::TCPSocket, library: :IO do
 
           value = within_io_actor { Celluloid::IO::TCPSocket.open(example_addr, example_port) { true } }
           expect(value).to be_truthy
-
-          server.close
-          thread.terminate
+        ensure
+          server.close rescue nil
         end
       end
     end
@@ -40,10 +37,8 @@ RSpec.describe Celluloid::IO::TCPSocket, library: :IO do
 
       peer << payload
       expect(within_io_actor { socket.read(payload.size) }).to eq payload
-
-      server.close
-      socket.close
-      peer.close
+    ensure
+      [server, socket, peer].each { |s| s.close rescue nil }
     end
 
     it "should be evented" do

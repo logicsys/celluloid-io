@@ -30,9 +30,7 @@ RSpec.describe Celluloid::IO::Reactor, library: :IO do
     end
 
     expect(handle).to be_truthy
-
-    server.close
-    peer.close
-    socket.close
+  ensure
+    [server, peer, socket].each { |s| s.close rescue nil }
   end
 end
