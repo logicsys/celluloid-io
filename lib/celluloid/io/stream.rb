@@ -253,7 +253,7 @@ module Celluloid
 
       # Writes +s+ to the stream.  +s+ will be converted to a String using
       # String#to_s.
-      def << (s)
+      def <<(s)
         do_write(s)
         self
       end
