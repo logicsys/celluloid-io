@@ -25,20 +25,14 @@ RSpec.describe Celluloid::IO::DNSResolver, library: :IO do
 
     it "resolves CNAME responses" do
       resolver = Celluloid::IO::DNSResolver.new
-      results = resolver.resolve("www.google.com")
-      if results.is_a?(Array)
-        results.all? { |i| expect(i).to be_an_instance_of(Resolv::IPv4) }
-      else
-        expect(results).to be_an_instance_of(Resolv::IPv4)
-      end
+      results = Array(resolver.resolve("www.google.com"))
+      expect(results).to_not be_empty
+      results.each { |r| expect(r).to be_an_instance_of(Resolv::IPv4).or be_an_instance_of(Resolv::IPv6) }
       # www.yahoo.com will be resolved randomly whether multiple or
       # single entry.
-      results = resolver.resolve("www.yahoo.com")
-      if results.is_a?(Array)
-        results.all? { |i| expect(i).to be_an_instance_of(Resolv::IPv4) }
-      else
-        expect(results).to be_an_instance_of(Resolv::IPv4)
-      end
+      results = Array(resolver.resolve("www.yahoo.com"))
+      expect(results).to_not be_empty
+      results.each { |r| expect(r).to be_an_instance_of(Resolv::IPv4).or be_an_instance_of(Resolv::IPv6) }
     end
   end
 end
