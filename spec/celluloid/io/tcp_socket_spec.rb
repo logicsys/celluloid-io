@@ -166,7 +166,6 @@ RSpec.describe Celluloid::IO::TCPSocket, library: :IO do
       end
 
       it "raises IOError when partial reading from a socket the peer closed" do
-        pending "async block running on receiver"
         with_connected_sockets(example_port) do |subject, peer|
           actor = with_wrapper_actor
           allow(logger).to receive(:crash).with("Actor crashed!", IOError)
