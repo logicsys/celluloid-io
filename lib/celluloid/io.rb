@@ -29,7 +29,7 @@ module Celluloid
 
     def self.evented?
       actor = Thread.current[:celluloid_actor]
-      actor && actor.mailbox.is_a?(Celluloid::IO::Mailbox)
+      !!(actor && actor.mailbox.is_a?(Celluloid::IO::Mailbox))
     end
 
     def self.try_convert(src)
