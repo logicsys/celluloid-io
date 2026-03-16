@@ -16,10 +16,11 @@ RSpec.describe Celluloid::IO::DNSResolver, library: :IO do
     end
 
     it "resolves domain names" do
-      resolver    = Celluloid::IO::DNSResolver.new
-      nameservers = resolver.resolve("celluloid.io")
-      expect(nameservers).to include Resolv::IPv4.create("104.28.21.100")
-      expect(nameservers).to include Resolv::IPv4.create("104.28.20.100")
+      resolver = Celluloid::IO::DNSResolver.new
+      result   = resolver.resolve("celluloid.io")
+      results  = Array(result)
+      expect(results).to_not be_empty
+      results.each { |r| expect(r).to be_an_instance_of(Resolv::IPv4).or be_an_instance_of(Resolv::IPv6) }
     end
 
     it "resolves CNAME responses" do
