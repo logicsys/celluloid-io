@@ -41,7 +41,12 @@ module Celluloid
         end
 
         query = build_query(hostname)
-        @socket.send query.encode, 0, @server.to_s, DNS_PORT
+        begin
+          @socket.send query.encode, 0, @server.to_s, DNS_PORT
+        rescue Errno::EBADF
+          @socket = UDPSocket.new(@server.family)
+          @socket.send query.encode, 0, @server.to_s, DNS_PORT
+        end
         data, _ = @socket.recvfrom(MAX_PACKET_SIZE)
         response = Resolv::DNS::Message.decode(data)
 
