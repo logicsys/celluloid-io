@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem 'celluloid',    github: 'logicsys/celluloid',    branch: 'develop'
+gem 'celluloid',    path: '../celluloid'
 
 
 group :development do
