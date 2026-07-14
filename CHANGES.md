@@ -1,3 +1,15 @@
+0.18.1 (2026-07-14)
+-----
+* Fix a suite-wide EBADF/ECONNRESET flake: the `Socket.for_fd` spec leaked a
+  Ruby-open socket whose fd was owned by the `for_fd` copy; its GC finalizer
+  closed recycled fds out from under later examples. Fd ownership is now
+  handed over with `autoclose = false`.
+* Add `spec/support/fd_forensics.rb` (`FD_FORENSICS=1`): scans open IO
+  objects after each example for kernel-closed-but-Ruby-open zombies and
+  duplicate fd owners, reporting allocation sites.
+* DNS resolver recreates its UDP socket on EBADF (defensive self-healing).
+* Tested against celluloid 0.18.1.
+
 0.18.0 (2026-03-16)
 -----
 * Maintenance release: modernize project for current Ruby ecosystem.
