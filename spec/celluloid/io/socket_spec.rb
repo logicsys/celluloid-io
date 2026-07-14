@@ -162,6 +162,9 @@ RSpec.describe Celluloid::IO::Socket, library: :IO do
     context '.for_fd' do
       it "creates basic sockets" do
         socket = Celluloid::IO::Socket.new(Celluloid::IO::Socket::AF_INET, Celluloid::IO::Socket::SOCK_STREAM, 0)
+        # `copy` shares the fd; hand ownership over so GC finalizing `socket`
+        # doesn't close a recycled fd out from under an unrelated example.
+        socket.autoclose = false
         copy = Celluloid::IO::Socket.for_fd(socket.fileno)
         expect(copy).to be_a ::Socket
         copy.close
