@@ -2,10 +2,12 @@ require "spec_helper"
 
 RSpec.describe Celluloid::IO::UDPSocket, library: :IO do
   let(:payload) { "ohai" }
-  let(:example_port) { assign_port }
+  # assign_port only probes TCP, so a UDP port it hands out can still be taken
+  # (e.g. by a container publishing a UDP range). Let the kernel pick a free one.
+  let(:example_port) { subject.addr[1] }
   subject do
     Celluloid::IO::UDPSocket.new.tap do |sock|
-      sock.bind example_addr, example_port
+      sock.bind example_addr, 0
     end
   end
 
